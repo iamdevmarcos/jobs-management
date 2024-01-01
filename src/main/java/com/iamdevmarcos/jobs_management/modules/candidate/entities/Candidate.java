@@ -13,13 +13,13 @@ public class Candidate {
     private UUID id;
     private String name;
 
-    @Pattern(regexp = "^(?!\\s*$).+", message = "O campo [username] não pode conter espaços")
+    @Pattern(regexp = "\\S+", message = "O campo [username] não pode conter espaços.")
     private String username;
 
     @Email(message = "O campo [email] deve conter um e-mail válido!")
     private String email;
 
-    @Length(min = 10, max = 100)
+    @Length(min = 5, max = 100, message = "O campo [senha] deve conter entre {min} e {max} caracteres.")
     private String password;
 
     @Length(max = 255)
