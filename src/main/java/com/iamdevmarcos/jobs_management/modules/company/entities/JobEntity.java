@@ -1,6 +1,7 @@
 package com.iamdevmarcos.jobs_management.modules.company.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -16,9 +17,11 @@ public class JobEntity {
 
     private String jobDescription;
     private String jobBenefits;
+
+    @NotBlank(message = "O campo [jobLevel] é obrigatório!")
     private String jobLevel;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private CompanyEntity companyEntity;
 
