@@ -1,5 +1,6 @@
 package com.iamdevmarcos.jobs_management.modules.candidate.controllers;
 
+import com.iamdevmarcos.jobs_management.exceptions.UserFoundException;
 import com.iamdevmarcos.jobs_management.modules.candidate.entities.CandidateEntity;
 import com.iamdevmarcos.jobs_management.modules.candidate.repositories.CandidateRepository;
 import jakarta.validation.Valid;
@@ -18,6 +19,12 @@ public class CandidateController {
 
     @PostMapping
     public CandidateEntity createCandidate(@Valid @RequestBody CandidateEntity candidate) {
+        this.candidateRepository
+                .findByUsernameOrEmail(candidate.getUsername(), candidate.getEmail())
+                .ifPresent(user -> {
+                    throw new UserFoundException();
+                });
+
         return this.candidateRepository.save(candidate);
     }
 }
