@@ -17,11 +17,13 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> {
                auth
+                   .requestMatchers("/auth/**").permitAll()
                    .requestMatchers("/candidate").permitAll()
                    .requestMatchers("/company").permitAll();
 
                auth.anyRequest().authenticated();
             });
+
         return http.build();
     }
 
